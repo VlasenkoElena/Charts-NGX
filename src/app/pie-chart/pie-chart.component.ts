@@ -29,7 +29,6 @@ export class PieChartComponent implements OnInit {
   constructor(private chartService: ChartService) {
     this.chartService.getData().subscribe(data => {
       this.pieData = data;
-      console.log(this.pieData);
       this.groupChartAction(this.pieData);
     });
   }
@@ -53,7 +52,6 @@ export class PieChartComponent implements OnInit {
   }
 
   createCircle(data) {
-    console.log(data);
     this.dataChart = data;
     this.showLegend = true;
   }

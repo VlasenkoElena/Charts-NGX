@@ -11,20 +11,18 @@ import { groupBy } from 'lodash';
 export class ChartComponent implements OnInit {
 data: any;
 dateArray: any;
-dataCircle: any;
-single: any;
+dataBar: any;
 
-view: any[] = [700, 400];
+view: any[] = [800, 400];
 
   // options
   showXAxis = true;
   showYAxis = true;
   gradient = false;
-  showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Country';
+  xAxisLabel = 'Date';
   showYAxisLabel = true;
-  yAxisLabel = 'Population';
+  yAxisLabel = 'Visitors per day';
 
     colorScheme = {
       domain: ['#5AA454', '#f86432', '#fdbd2d', '#fffc4f', '#affffb', '#1d68fb', '#4afffb', '#33c0fc']
@@ -39,18 +37,17 @@ view: any[] = [700, 400];
           const date = new Date(element.date).getTime();
           const newDate = new Date(date).toLocaleDateString();
           element.date = newDate;
-        //  console.log(element.date);
           return element;
         });
         this.dateArray = dArray;
-        this.sortAction(this.dateArray);
+        this.groupUser(this.dateArray);
       });
   }
 
  ngOnInit() {}
 
-  sortAction(dateArray) {
-      const obj = groupBy(dateArray, 'action');
+  groupUser(dateArray) {
+      const obj = groupBy(dateArray, 'date');
       const countArray = [];
       const ar = [];
       for (const key in obj) {
@@ -63,14 +60,13 @@ view: any[] = [700, 400];
           ar.push(object);
         }
       }
-      this.createCircle(ar);
+      this.createBar(ar);
   }
 
 
-  createCircle(data) {
+  createBar(data) {
     console.log(data);
-    this.single = data;
-    this.showLegend = true;
+    this.dataBar = data;
   }
 
 }
