@@ -19,7 +19,7 @@ view: any[] = [800, 400];
 
   // colorSheme
    colorScheme = {
-      domain: ['#4c6ca0', '#5769c5', '#1e2366', '#bcb1f9', '#ffcc00', '#dad3f2', '#4afffb', '#33c0fc']
+      domain: ['#433e90', '#8ec127', '#1e2366', '#bcb1f9', '#ffcc00', '#dad3f2', '#4afffb', '#33c0fc']
     };
     colorSchemeCountry = {
       domain: [ '#ffb3ba', '#ffdfba', '#ffffba', '#baffc9', '#bae1ff']
