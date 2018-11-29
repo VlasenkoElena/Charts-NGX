@@ -1,14 +1,47 @@
-
+<div class="container">
 <ngx-charts-bar-vertical
   [view]="view"
   [results]="dataBar"
-  [gradient]="gradient"
-  [xAxis]="showXAxis"
-  [yAxis]="showYAxis"
+  [gradient]="true"
+  [xAxis]="true"
+  [yAxis]="true"
   [legend]="false"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
+  [showXAxisLabel]="true"
+  [showYAxisLabel]="true"
+  [xAxisLabel]="'Date'"
+  [yAxisLabel]="'Visistors per day'"
   (select)="onSelect($event)">
 </ngx-charts-bar-vertical>
+
+<ngx-charts-bar-vertical
+  [view]="view"
+  [results]="dataBarHits"
+  [gradient]="false"
+  [xAxis]="true"
+  [yAxis]="true"
+  [legend]="false"
+  [showDataLabel]="false"
+  [scheme]="colorScheme"
+  [showXAxisLabel]="true"
+  [showYAxisLabel]="true"
+  [xAxisLabel]="'User'"
+  [yAxisLabel]="'Hits'"
+  (select)="onSelect($event)">
+</ngx-charts-bar-vertical>
+
+<ngx-charts-bar-vertical
+  [view]="[1200]"
+  [results]="dataBarCountry"
+  [gradient]="false"
+  [xAxis]="true"
+  [yAxis]="true"
+  [legend]="false"
+  [showDataLabel]="true"
+  [scheme]="colorSchemeCountry"
+  [showXAxisLabel]="true"
+  [showYAxisLabel]="true"
+  [xAxisLabel]="'Country'"
+  [yAxisLabel]="'Users'"
+  (select)="onSelect($event)">
+</ngx-charts-bar-vertical>
+</div>

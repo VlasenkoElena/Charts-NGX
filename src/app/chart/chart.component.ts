@@ -10,22 +10,19 @@ import { groupBy } from 'lodash';
 })
 export class ChartComponent implements OnInit {
 data: any;
-dateArray: any;
+dateArray: any[];
 dataBar: any;
+dataBarHits: any[];
+dataBarCountry: any[];
 
 view: any[] = [800, 400];
 
-  // options
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showXAxisLabel = true;
-  xAxisLabel = 'Date';
-  showYAxisLabel = true;
-  yAxisLabel = 'Visitors per day';
-
-    colorScheme = {
-      domain: ['#5AA454', '#f86432', '#fdbd2d', '#fffc4f', '#affffb', '#1d68fb', '#4afffb', '#33c0fc']
+  // colorSheme
+   colorScheme = {
+      domain: ['#4c6ca0', '#5769c5', '#1e2366', '#bcb1f9', '#ffcc00', '#dad3f2', '#4afffb', '#33c0fc']
+    };
+    colorSchemeCountry = {
+      domain: [ '#ffb3ba', '#ffdfba', '#ffffba', '#baffc9', '#bae1ff']
     };
 
 
@@ -41,10 +38,13 @@ view: any[] = [800, 400];
         });
         this.dateArray = dArray;
         this.groupUser(this.dateArray);
+        this.groupHits(this.dateArray);
+        this.groupCountry(this.dateArray);
       });
   }
 
- ngOnInit() {}
+ ngOnInit() {
+ }
 
   groupUser(dateArray) {
       const obj = groupBy(dateArray, 'date');
@@ -63,10 +63,109 @@ view: any[] = [800, 400];
       this.createBar(ar);
   }
 
+  filterByUserID(arrayH) {
+    const array = [];
+    arrayH.forEach(element => {
+      if (
+        typeof element.user_id === 'string' ||
+        element.user_id instanceof String
+      ) {
+        if (element.user_id) {
+          array.push(element);
+        }
+      }
+    });
+    return array;
+  }
+
+  updateContryKeyProprerty(array) {
+    const arr = [];
+    array.forEach(element => {
+      if (element.payload) {
+        if (Array.isArray(element.payload.countryCode)) {
+          if (element.payload.countryCode.length !== 0) {
+            const code = element.payload.countryCode[0];
+            const objData = {};
+            objData[code.toString()] = element;
+            arr.push(objData);
+          }
+        }
+      }
+    });
+   return this.sortToObject(arr);
+  }
+
+  sortToObject(array) {
+    const obj = {};
+    array.forEach(element => {
+      for (const key of Object.keys(element)) {
+        if (Object.keys(obj).length === 0) {
+          const ar = [];
+          const el = element[key];
+          ar.push(el);
+          obj[key] = ar;
+        } else {
+          if (Object.keys(obj).includes(key)) {
+            const el = element[key];
+            obj[key].push(el);
+          } else {
+            const ar = [];
+            const el = element[key];
+            ar.push(el);
+            obj[key] = ar;
+          }
+        }
+      }
+    });
+    return obj;
+  }
+
+  groupHits(arrayHits) {
+  const obj = groupBy(this.filterByUserID(arrayHits), 'date');
+    const countArray = [];
+    const ar = [];
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const object = {};
+        const n = obj[key].length;
+        object['name'] = key;
+        object['value'] = n;
+        countArray.push(n);
+        ar.push(object);
+      }
+    }
+    this.createBarHits(ar);
+}
+
+groupCountry(arrayCountry) {
+ const obj = this.updateContryKeyProprerty(arrayCountry);
+ console.log(obj);
+  const countArray = [];
+  const ar = [];
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const object = {};
+      const n = obj[key].length;
+      object['name'] = key;
+      object['value'] = n;
+      countArray.push(n);
+      ar.push(object);
+    }
+  }
+  this.createBarCountry(ar);
+}
+
 
   createBar(data) {
-    console.log(data);
     this.dataBar = data;
+  }
+
+  createBarHits(data) {
+    this.dataBarHits = data;
+  }
+
+  createBarCountry(data) {
+    this.dataBarCountry = data;
   }
 
 }

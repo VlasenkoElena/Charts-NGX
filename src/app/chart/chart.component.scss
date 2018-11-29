@@ -1,4 +1,6 @@
-.chart {
- width: 50%;
- height: 400px;
+.container {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }

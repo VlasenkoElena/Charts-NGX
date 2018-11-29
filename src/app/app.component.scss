@@ -1,5 +1,14 @@
-.content {
-   width: 90%;
-   display: flex;
-   justify-content: space-between;
+h1 {
+    text-align: center;
+    color: grey;
+}
+// .content {
+//    width: 50%;
+//    margin: auto;
+// }
+.chart-bar {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
 }

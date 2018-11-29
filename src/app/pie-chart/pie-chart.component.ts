@@ -11,7 +11,7 @@ export class PieChartComponent implements OnInit {
   pieData: any;
   dataChart: any;
   // options
-  view: any[] = [600, 300];
+  view: any[] = [900, 400];
   showLegend = true;
   colorScheme = {
     domain: [
